@@ -1,6 +1,8 @@
 package com.maru.socialnetwork4.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -16,9 +18,10 @@ public class Post implements Serializable {
     private String title;
     @Column(name = "description", nullable = false)
     private String description;
+
     @ManyToOne
-    @JoinColumn(name = "userId")
     private User user;
+
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 

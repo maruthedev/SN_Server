@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     UserServiceImpl userServiceImpl = new UserServiceImpl();
 
-    @GetMapping(path = "/signIn")
+    @PostMapping(path = "/signIn")
     public User signIn(@RequestBody User user) {
         return userServiceImpl.signIn(user);
     }

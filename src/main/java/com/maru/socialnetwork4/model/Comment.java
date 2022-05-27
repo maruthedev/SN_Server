@@ -1,5 +1,7 @@
 package com.maru.socialnetwork4.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,11 +16,11 @@ public class Comment implements Serializable {
     private String description;
     @Column(name = "points", nullable = false)
     private int points;
+
     @ManyToOne
-    @JoinColumn(name = "userId")
     private User user;
+
     @ManyToOne
-    @JoinColumn(name = "postId")
     private Post post;
 
     public Comment() {

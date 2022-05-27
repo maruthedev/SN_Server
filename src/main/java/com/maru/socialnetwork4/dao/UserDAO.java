@@ -7,10 +7,10 @@ import org.hibernate.query.Query;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class userDAO extends DAO {
+public class UserDAO extends DAO {
     Transaction trans = session.getTransaction();
 
-    public userDAO() {
+    public UserDAO() {
         super();
     }
 
