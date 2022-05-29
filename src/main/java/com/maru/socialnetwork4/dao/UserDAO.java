@@ -20,17 +20,7 @@ public class UserDAO extends DAO {
             query.setParameter("un", user.getUsername());
             query.setParameter("pw", user.getPassword());
             ArrayList<User> re = new ArrayList<>(query.list());
-            if (re.size() == 1) {
-                User u = new User(
-                        re.get(0).getUsername(),
-                        re.get(0).getPassword(),
-                        re.get(0).getFullName(),
-                        re.get(0).getDob(),
-                        re.get(0).getNote()
-                );
-                u.setID(re.get(0).getID());
-                return u;
-            }
+            if (re.size() == 1) return re.get(0);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -52,16 +42,9 @@ public class UserDAO extends DAO {
                         "Join at " + LocalDateTime.now()
                 );
 
-                System.out.println("username: " + newUser.getUsername());
-                System.out.println("password: " + newUser.getPassword());
-                System.out.println("fullname: " + newUser.getFullName());
-                System.out.println("dob: " + newUser.getDob());
-                System.out.println("note: " + newUser.getNote());
-
                 if (!trans.isActive()) trans.begin();
                 session.save(newUser);
                 trans.commit();
-
                 return newUser;
             }
         } catch (Exception e) {

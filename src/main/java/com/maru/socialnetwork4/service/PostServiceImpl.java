@@ -11,4 +11,14 @@ public class PostServiceImpl implements PostService {
     public Post upload(Post post) {
         return new PostDAO().upload(post);
     }
+
+    @Override
+    public List findPost(String param) {
+        return new PostDAO().findPost(param);
+    }
+
+    @Override
+    public List getUserPosts(User user) {
+        return new PostDAO().getUserPosts(user);
+    }
 }

@@ -6,7 +6,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PostDAO extends DAO {
@@ -31,4 +30,27 @@ public class PostDAO extends DAO {
         }
     }
 
+    public List<Post> findPost(String param) {
+        try {
+            String hql = "FROM Post WHERE (title LIKE :p OR user.username LIKE :p)";
+            Query query = session.createQuery(hql);
+            query.setParameter("p", "%" + param + "%");
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Post> getUserPosts(User user) {
+        try{
+            String hql = "FROM Post WHERE user.id = :i";
+            Query query = session.createQuery(hql);
+            query.setParameter("i", user.getID());
+            return query.list();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

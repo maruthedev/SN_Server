@@ -1,6 +1,8 @@
 package com.maru.socialnetwork4.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ public class Post implements Serializable {
     @Column(name = "date")
     private String date;
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "post")
@@ -36,6 +39,14 @@ public class Post implements Serializable {
         this.description = description;
         this.comments = new ArrayList<>();
         this.date = "" + LocalDateTime.now();
+    }
+
+    public Post(String title, String description, String date, User user, List<Comment> comments) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.user = user;
+        this.comments = comments;
     }
 
     public int getID() {

@@ -8,7 +8,7 @@ import java.util.List;
 public interface PostService {
     public Post upload(Post post);
 
-//    public List findPost(String param);
+    public List findPost(String param);
 
-//    public List getUserPosts(User user);
+    public List getUserPosts(User user);
 }

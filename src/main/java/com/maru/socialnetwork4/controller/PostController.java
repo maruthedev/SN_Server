@@ -18,4 +18,14 @@ public class PostController {
     public Post upload(@RequestBody Post post) {
         return postServiceImpl.upload(post);
     }
+
+    @PostMapping("/findPost")
+    public List<Post> findPost(@RequestParam String param) {
+        return postServiceImpl.findPost(param);
+    }
+
+    @PostMapping("/getUserPosts")
+    public List<Post> findUserPosts(@RequestBody User user) {
+        return postServiceImpl.getUserPosts(user);
+    }
 }
