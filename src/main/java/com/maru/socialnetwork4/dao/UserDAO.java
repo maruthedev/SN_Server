@@ -21,7 +21,15 @@ public class UserDAO extends DAO {
             query.setParameter("pw", user.getPassword());
             ArrayList<User> re = new ArrayList<>(query.list());
             if (re.size() == 1) {
-                return re.get(0);
+                User u = new User(
+                        re.get(0).getUsername(),
+                        re.get(0).getPassword(),
+                        re.get(0).getFullName(),
+                        re.get(0).getDob(),
+                        re.get(0).getNote()
+                );
+                u.setID(re.get(0).getID());
+                return u;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,8 +47,8 @@ public class UserDAO extends DAO {
                 User newUser = new User(
                         user.getUsername(),
                         user.getPassword(),
-                        (user.getFullName() == null? "*chua dang ky" : user.getFullName()),
-                        (user.getDob() == null? "*chua dang ky" : user.getDob()),
+                        (user.getFullName() == null ? "*chua dang ky" : user.getFullName()),
+                        (user.getDob() == null ? "*chua dang ky" : user.getDob()),
                         "Join at " + LocalDateTime.now()
                 );
 

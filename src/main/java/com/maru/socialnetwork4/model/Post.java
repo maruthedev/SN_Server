@@ -1,10 +1,10 @@
 package com.maru.socialnetwork4.model;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +18,8 @@ public class Post implements Serializable {
     private String title;
     @Column(name = "description", nullable = false)
     private String description;
-
+    @Column(name = "date")
+    private String date;
     @ManyToOne
     private User user;
 
@@ -26,11 +27,15 @@ public class Post implements Serializable {
     private List<Comment> comments;
 
     public Post() {
+        this.comments = new ArrayList<>();
+        this.date = "" + LocalDateTime.now();
     }
 
     public Post(String title, String description) {
         this.title = title;
         this.description = description;
+        this.comments = new ArrayList<>();
+        this.date = "" + LocalDateTime.now();
     }
 
     public int getID() {
@@ -55,6 +60,14 @@ public class Post implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public User getUser() {
