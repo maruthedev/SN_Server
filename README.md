@@ -4,7 +4,7 @@
 - User: sign in, sign up
 - Post: upload, find post, get user posts
 
-### Used Tech(s)
+### Used Tech(s):
 - Java Spring Boot
 - Hibernate ORM
 - MySQL Database
