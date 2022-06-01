@@ -1,14 +1,12 @@
 package com.maru.socialnetwork4.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "comment")
-public class Comment implements Serializable {
+public class Comment{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
@@ -19,11 +17,11 @@ public class Comment implements Serializable {
     private int points;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference(value = "comment_user")
     private User user;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference(value = "comment_post")
     private Post post;
 
     public Comment() {

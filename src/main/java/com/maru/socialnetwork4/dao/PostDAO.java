@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostDAO extends DAO {
@@ -18,7 +19,8 @@ public class PostDAO extends DAO {
     public Post upload(Post post) {
         try {
             post.setDate("" + LocalDateTime.now());
-            System.out.println(post.getDate());
+            post.setPoints(0);
+            post.setComments(new ArrayList<>());
 
             if (!trans.isActive()) trans.begin();
             session.save(post);

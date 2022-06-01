@@ -1,17 +1,15 @@
 package com.maru.socialnetwork4.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "post")
-public class Post implements Serializable {
+public class Post{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
@@ -22,8 +20,11 @@ public class Post implements Serializable {
     private String description;
     @Column(name = "date")
     private String date;
+    @Column(name = "points")
+    private int points;
+
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference(value = "post_user")
     private User user;
 
     @OneToMany(mappedBy = "post")
@@ -32,6 +33,7 @@ public class Post implements Serializable {
     public Post() {
         this.comments = new ArrayList<>();
         this.date = "" + LocalDateTime.now();
+        this.points = 0;
     }
 
     public Post(String title, String description) {
@@ -39,12 +41,14 @@ public class Post implements Serializable {
         this.description = description;
         this.comments = new ArrayList<>();
         this.date = "" + LocalDateTime.now();
+        this.points = 0;
     }
 
-    public Post(String title, String description, String date, User user, List<Comment> comments) {
+    public Post(String title, String description, String date, int points, User user, List<Comment> comments) {
         this.title = title;
         this.description = description;
         this.date = date;
+        this.points = points;
         this.user = user;
         this.comments = comments;
     }
@@ -79,6 +83,14 @@ public class Post implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public User getUser() {
