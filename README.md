@@ -2,7 +2,7 @@
 
 ### Provided Service(s):
 - User: sign in, sign up
-- Post: upload post
+- Post: upload, find post, get user posts
 
 ###
 - Java Spring Boot
