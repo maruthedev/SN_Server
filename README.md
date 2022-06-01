@@ -5,6 +5,6 @@
 - Post: upload, find post, get user posts
 
 ### Used Tech(s):
-- Java Spring Boot
+- Java Spring
 - Hibernate ORM
 - MySQL Database
