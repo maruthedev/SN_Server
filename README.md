@@ -1,4 +1,5 @@
 # Social Network4 Server
+# RESTful Web Service using Spring Boot
 
 ### Provided Service(s):
 - User: sign in, sign up
