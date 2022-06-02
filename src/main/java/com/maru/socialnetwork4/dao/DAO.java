@@ -14,10 +14,8 @@ public class DAO {
             try {
                 session = new Configuration().configure(new File("src/main/resources/Hibernate.config.xml"))
                         .buildSessionFactory().openSession();
-            } catch (HibernateException ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }

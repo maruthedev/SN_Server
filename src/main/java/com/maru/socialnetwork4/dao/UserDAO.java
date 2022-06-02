@@ -53,4 +53,27 @@ public class UserDAO extends DAO {
         }
         return null;
     }
+
+    public User update(User user) {
+        try {
+            if (!trans.isActive()) trans.begin();
+//            User u = new User(
+//                    user.getUsername(),
+//                    user.getPassword(),
+//                    user.getFullName(),
+//                    user.getDob(),
+//                    user.getNote()
+//            );
+//            u.setPosts(user.getPosts());
+//            u.setComments(user.getComments());
+//            u.setID(user.getID());
+//            System.out.println(u.toString());
+            session.update(user);
+            trans.commit();
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

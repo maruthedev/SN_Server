@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "comment")
-public class Comment{
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
@@ -71,5 +71,13 @@ public class Comment{
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    @Override
+    public String toString() {
+        return "des: " + description + "\n"
+                + "points: " + points + "\n"
+                + "user: " + user + "\n"
+                + "post: " + post + "\n";
     }
 }

@@ -1,6 +1,6 @@
 package com.maru.socialnetwork4.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "post")
-public class Post{
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
@@ -107,5 +107,14 @@ public class Post{
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "title: " + title + "\n"
+                + "des: " + description + "\n"
+                + "date: " + date + "\n"
+                + "points: " + points + "\n"
+                + "user: " + user + "\n";
     }
 }

@@ -21,4 +21,9 @@ public class PostServiceImpl implements PostService {
     public List getUserPosts(User user) {
         return new PostDAO().getUserPosts(user);
     }
+
+    @Override
+    public List getAllPosts() {
+        return new PostDAO().getAllPosts();
+    }
 }

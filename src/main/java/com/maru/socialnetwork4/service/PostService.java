@@ -11,4 +11,6 @@ public interface PostService {
     public List findPost(String param);
 
     public List getUserPosts(User user);
+
+    public List getAllPosts();
 }

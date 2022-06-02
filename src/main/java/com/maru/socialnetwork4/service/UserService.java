@@ -6,4 +6,6 @@ public interface UserService {
     public User signIn(User user);
 
     public User signUp(User user);
+
+    public User update(User user);
 }
