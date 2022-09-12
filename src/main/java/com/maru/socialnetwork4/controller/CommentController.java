@@ -1,19 +1,19 @@
 package com.maru.socialnetwork4.controller;
 
 import com.maru.socialnetwork4.model.Comment;
-import com.maru.socialnetwork4.service.CommentServiceImpl;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.maru.socialnetwork4.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "comment", produces = "application/json")
+@CrossOrigin
 public class CommentController {
-    CommentServiceImpl commentServiceImpl = new CommentServiceImpl();
+    @Autowired
+    CommentService commentService;
 
     @PostMapping(path = "write")
     public Comment comment(@RequestBody Comment c){
-        return commentServiceImpl.write(c);
+        return commentService.create(c);
     }
 }
