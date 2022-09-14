@@ -3,9 +3,9 @@ package com.maru.socialnetwork4.dao;
 import com.maru.socialnetwork4.model.User;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO extends DAO {
     Transaction trans = session.getTransaction();
@@ -16,7 +16,8 @@ public class UserDAO extends DAO {
 
     public User check(User user) {
         try {
-            Query query = session.createQuery("FROM User WHERE username = :un AND password = :pw");
+            String hql = "FROM User WHERE username = :un AND password = :pw";
+            Query query = session.createQuery(hql);
             query.setParameter("un", user.getUsername());
             query.setParameter("pw", user.getPassword());
             ArrayList<User> re = new ArrayList<>(query.list());
@@ -28,48 +29,57 @@ public class UserDAO extends DAO {
         return null;
     }
 
+    public int countUsernamesLike(String username) {
+        try {
+            String hql = "FROM User WHERE username = :un";
+            Query query = session.createQuery(hql);
+            query.setParameter("un", username);
+            List<User> users = new ArrayList<>(query.list());
+            return users.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
     public User add(User user) {
         try {
-            Query query = session.createQuery("FROM User WHERE username = :un");
-            query.setParameter("un", user.getUsername());
-            ArrayList<User> re = new ArrayList<>(query.list());
-            if (re.size() == 0) {
-                User newUser = new User(
-                        user.getUsername(),
-                        user.getPassword(),
-                        (user.getfullName() == null ? "*chua dang ky" : user.getfullName()),
-                        (user.getDob() == null ? "*chua dang ky" : user.getDob()),
-                        "Join at " + LocalDateTime.now()
-                );
-
-                if (!trans.isActive()) trans.begin();
-                session.save(newUser);
-                trans.commit();
-                return newUser;
-            }
+            User newUser = new User(
+                    user.getUsername(),
+                    user.getPassword(),
+                    (user.getfullName() == null ? "*chua dang ky" : user.getfullName()),
+                    (user.getDob() == null ? "*chua dang ky" : user.getDob()),
+                    "Join at " + LocalDateTime.now()
+            );
+            if (!trans.isActive()) trans.begin();
+            session.save(newUser);
+            trans.commit();
+            return newUser;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        return null;
     }
 
     public User update(User user) {
         try {
             if (!trans.isActive()) trans.begin();
-//            User u = new User(
-//                    user.getUsername(),
-//                    user.getPassword(),
-//                    user.getFullName(),
-//                    user.getDob(),
-//                    user.getNote()
-//            );
-//            u.setPosts(user.getPosts());
-//            u.setComments(user.getComments());
-//            u.setID(user.getID());
-//            System.out.println(u.toString());
-            session.update(user);
+
+            String hql = "UPDATE User SET password = :pw, " +
+                    "dob = :dob, " +
+                    "fullName = :fn, " +
+                    "note = :note " +
+                    "WHERE id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("pw", user.getPassword());
+            query.setParameter("dob", user.getDob());
+            query.setParameter("fn", user.getfullName());
+            query.setParameter("note", user.getNote());
+            query.setParameter("id", user.getID());
+            query.executeUpdate();
+
             trans.commit();
+            session.clear();
             return user;
         } catch (Exception e) {
             e.printStackTrace();

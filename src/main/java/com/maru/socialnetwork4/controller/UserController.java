@@ -14,7 +14,6 @@ public class UserController {
 
     @PostMapping(path = "signIn")
     public User signIn(@RequestBody User user) {
-        System.out.println(user);
         return userService.signIn(user);
     }
 
@@ -25,7 +24,6 @@ public class UserController {
 
     @PostMapping(path = "update")
     public User update(@RequestBody User user){
-        System.out.println(user);
         return userService.update(user);
     }
 }
