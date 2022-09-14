@@ -16,7 +16,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "fullname")
-    private String fullname;
+    private String fullName;
     @Column(name = "dob")
     private String dob;
     @Column(name = "note")
@@ -32,10 +32,10 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String fullname, String dob, String note) {
+    public User(String username, String password, String fullName, String dob, String note) {
         this.username = username;
         this.password = password;
-        this.fullname = fullname;
+        this.fullName = fullName;
         this.dob = dob;
         this.note = note;
         this.posts = new ArrayList<>();
@@ -66,12 +66,12 @@ public class User {
         this.password = password;
     }
 
-    public String getFullName() {
-        return fullname;
+    public String getfullName() {
+        return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullname = fullname;
+    public void setfullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getDob() {
@@ -112,7 +112,7 @@ public class User {
                 "ID=" + ID +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", fullname='" + fullname + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", dob='" + dob + '\'' +
                 ", note='" + note + '\'' +
                 ", posts=" + posts +

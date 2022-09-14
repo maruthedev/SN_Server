@@ -37,7 +37,7 @@ public class UserDAO extends DAO {
                 User newUser = new User(
                         user.getUsername(),
                         user.getPassword(),
-                        (user.getFullName() == null ? "*chua dang ky" : user.getFullName()),
+                        (user.getfullName() == null ? "*chua dang ky" : user.getfullName()),
                         (user.getDob() == null ? "*chua dang ky" : user.getDob()),
                         "Join at " + LocalDateTime.now()
                 );
