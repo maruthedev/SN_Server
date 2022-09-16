@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class UserService implements CustomService<User> {
-    private UserDAO userDAO = new UserDAO();
+    private final static UserDAO userDAO = new UserDAO();
 
     public User signIn(User user) {
         return userDAO.check(user);

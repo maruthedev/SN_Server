@@ -1,23 +1,19 @@
 package com.maru.socialnetwork4.service;
 
+import com.maru.socialnetwork4.dao.PostDAO;
 import com.maru.socialnetwork4.model.Post;
 import com.maru.socialnetwork4.model.User;
-import com.maru.socialnetwork4.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class PostService implements CustomService<Post> {
-    @Autowired
-    PostRepository postRepository;
+    private final static PostDAO postDAO = new PostDAO();
 
     @Override
     public Post create(Post post) {
-        return postRepository.upload(post.getDescription(), post.getTitle(), post.getUser().getID(),
-                "" + LocalDateTime.now(), 0);
+        return postDAO.upload(post);
     }
 
     @Override
@@ -30,15 +26,15 @@ public class PostService implements CustomService<Post> {
         return null;
     }
 
-    public List<Post> findPostByTitle(String param){
-        return postRepository.findPostByTitle(param);
+    public List<Post> findPostByTitleOrUsername(String param){
+        return postDAO.findPost(param);
     }
 
     public List<Post> getUserPost(User user){
-        return postRepository.getUserPost(user.getUsername());
+        return postDAO.getUserPosts(user);
     }
 
     public List<Post> getAllPost(){
-        return postRepository.getAllPost();
+        return postDAO.getAllPosts();
     }
 }

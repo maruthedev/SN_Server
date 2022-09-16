@@ -46,9 +46,9 @@ public class PostDAO extends DAO {
 
     public List<Post> getUserPosts(User user) {
         try {
-            String hql = "FROM Post WHERE user.id = :i";
+            String hql = "FROM Post WHERE user.username = :un";
             Query query = session.createQuery(hql);
-            query.setParameter("i", user.getID());
+            query.setParameter("un", user.getUsername());
             return query.list();
         } catch (Exception e) {
             e.printStackTrace();

@@ -22,7 +22,7 @@ public class PostController {
 
     @PostMapping(path = "find")
     public List<Post> findPost(@RequestParam String param) {
-        return postService.findPostByTitle(param);
+        return postService.findPostByTitleOrUsername(param);
     }
 
     @PostMapping(path = "getUserPosts")
