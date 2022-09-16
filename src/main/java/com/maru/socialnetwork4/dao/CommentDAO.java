@@ -14,7 +14,6 @@ public class CommentDAO extends DAO {
         try {
             if (!trans.isActive()) trans.begin();
             c.setPoints(0);
-            System.out.println(c.toString());
             session.save(c);
             trans.commit();
             return c;

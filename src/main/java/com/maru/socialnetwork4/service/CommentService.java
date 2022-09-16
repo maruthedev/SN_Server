@@ -1,18 +1,16 @@
 package com.maru.socialnetwork4.service;
 
+import com.maru.socialnetwork4.dao.CommentDAO;
 import com.maru.socialnetwork4.model.Comment;
-import com.maru.socialnetwork4.repository.CommentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CommentService implements CustomService<Comment>{
-    @Autowired
-    CommentRepository commentRepository;
+    private final static CommentDAO commentDAO = new CommentDAO();
 
     @Override
     public Comment create(Comment comment) {
-        return commentRepository.write(comment.getDescription(), comment.getPoints(),comment.getPost().getID() ,comment.getUser().getID());
+        return commentDAO.write(comment);
     }
 
     @Override

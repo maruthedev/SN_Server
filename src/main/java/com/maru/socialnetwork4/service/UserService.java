@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-@Transactional
 public class UserService implements CustomService<User> {
     private final static UserDAO userDAO = new UserDAO();
 
