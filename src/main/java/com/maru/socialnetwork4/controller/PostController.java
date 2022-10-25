@@ -20,7 +20,7 @@ public class PostController {
         return postService.create(post);
     }
 
-    @PostMapping(path = "find")
+    @GetMapping(path = "find")
     public List<Post> findPost(@RequestParam String param) {
         return postService.findPostByTitleOrUsername(param);
     }
