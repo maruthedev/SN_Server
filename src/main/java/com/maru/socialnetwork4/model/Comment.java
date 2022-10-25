@@ -17,11 +17,9 @@ public class Comment {
     private int points;
 
     @ManyToOne
-    @JsonBackReference(value = "comment_user")
     private User user;
 
     @ManyToOne
-    @JsonBackReference(value = "comment_post")
     private Post post;
 
     public Comment() {

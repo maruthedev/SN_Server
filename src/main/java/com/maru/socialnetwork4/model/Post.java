@@ -24,10 +24,10 @@ public class Post {
     private int points;
 
     @ManyToOne
-    @JsonBackReference(value = "post_user")
     private User user;
 
     @OneToMany(mappedBy = "post")
+    @JsonBackReference(value = "post_comment")
     private List<Comment> comments;
 
     public Post() {
