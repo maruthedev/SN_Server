@@ -63,19 +63,19 @@ public class UserDAO extends DAO {
 
     public User update(User user) {
         try {
+            System.out.println(user.toString());
             if (!trans.isActive()) trans.begin();
 
-            String hql = "UPDATE User SET password = :pw, " +
+            String hql = "UPDATE User SET " +
                     "dob = :dob, " +
                     "fullName = :fn, " +
                     "note = :note " +
-                    "WHERE id = :id";
+                    "WHERE username = :un";
             Query query = session.createQuery(hql);
-            query.setParameter("pw", user.getPassword());
             query.setParameter("dob", user.getDob());
             query.setParameter("fn", user.getfullName());
             query.setParameter("note", user.getNote());
-            query.setParameter("id", user.getID());
+            query.setParameter("un", user.getUsername());
             query.executeUpdate();
 
             trans.commit();

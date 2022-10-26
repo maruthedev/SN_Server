@@ -23,7 +23,6 @@ public class User {
     private String dob;
     @Column(name = "note")
     private String note;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonBackReference(value = "user_post")
     private List<Post> posts;
