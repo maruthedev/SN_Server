@@ -1,6 +1,5 @@
 package com.maru.socialnetwork4.dao;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
@@ -9,7 +8,7 @@ import java.io.File;
 public abstract class DAO<T> {
     private static Session session;
 
-    public DAO() {
+    protected DAO() {
         if (session == null) {
             try {
                 session = new Configuration().configure(new File("src/main/resources/Hibernate.config.xml"))

@@ -3,7 +3,6 @@ package com.maru.socialnetwork4.service;
 import com.maru.socialnetwork4.dao.UserDAO;
 import com.maru.socialnetwork4.model.User;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
 
 @Service
 public class UserService implements CustomService<User> {
