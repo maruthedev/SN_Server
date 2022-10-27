@@ -13,7 +13,7 @@ public class PostService implements CustomService<Post> {
 
     @Override
     public Post create(Post post) {
-        return postDAO.upload(post);
+        return postDAO.create(post);
     }
 
     @Override
@@ -36,5 +36,9 @@ public class PostService implements CustomService<Post> {
 
     public List<Post> getAllPost(){
         return postDAO.getAllPosts();
+    }
+
+    public Post react(Post post){
+        return postDAO.react(post);
     }
 }

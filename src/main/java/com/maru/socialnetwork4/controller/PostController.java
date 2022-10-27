@@ -34,4 +34,10 @@ public class PostController {
     public List<Post> getAllPosts() {
         return postService.getAllPost();
     }
+
+    @PostMapping(path = "react")
+    public Post react(@RequestBody Post post){
+        return postService.react(post);
+    }
+
 }

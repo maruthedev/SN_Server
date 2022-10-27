@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends DAO {
-    Transaction trans = session.getTransaction();
+public class UserDAO extends DAO<User> {
+    Transaction trans = getSession().getTransaction();
 
     public UserDAO() {
         super();
@@ -17,7 +17,7 @@ public class UserDAO extends DAO {
     public User check(User user) {
         try {
             String hql = "FROM User WHERE username = :un AND password = :pw";
-            Query query = session.createQuery(hql);
+            Query query = getSession().createQuery(hql);
             query.setParameter("un", user.getUsername());
             query.setParameter("pw", user.getPassword());
             ArrayList<User> re = new ArrayList<>(query.list());
@@ -32,7 +32,7 @@ public class UserDAO extends DAO {
     public int countUsernamesLike(String username) {
         try {
             String hql = "FROM User WHERE username = :un";
-            Query query = session.createQuery(hql);
+            Query query = getSession().createQuery(hql);
             query.setParameter("un", username);
             List<User> users = new ArrayList<>(query.list());
             return users.size();
@@ -42,7 +42,8 @@ public class UserDAO extends DAO {
         }
     }
 
-    public User add(User user) {
+    @Override
+    public User create(User user) {
         try {
             User newUser = new User(
                     user.getUsername(),
@@ -52,7 +53,7 @@ public class UserDAO extends DAO {
                     "Join at " + LocalDateTime.now()
             );
             if (!trans.isActive()) trans.begin();
-            session.save(newUser);
+            getSession().save(newUser);
             trans.commit();
             return newUser;
         } catch (Exception e) {
@@ -61,9 +62,9 @@ public class UserDAO extends DAO {
         }
     }
 
+    @Override
     public User update(User user) {
         try {
-            System.out.println(user.toString());
             if (!trans.isActive()) trans.begin();
 
             String hql = "UPDATE User SET " +
@@ -71,7 +72,7 @@ public class UserDAO extends DAO {
                     "fullName = :fn, " +
                     "note = :note " +
                     "WHERE username = :un";
-            Query query = session.createQuery(hql);
+            Query query = getSession().createQuery(hql);
             query.setParameter("dob", user.getDob());
             query.setParameter("fn", user.getfullName());
             query.setParameter("note", user.getNote());
@@ -79,11 +80,16 @@ public class UserDAO extends DAO {
             query.executeUpdate();
 
             trans.commit();
-            session.clear();
+            getSession().clear();
             return user;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public User delete(User user) {
+        return null;
     }
 }

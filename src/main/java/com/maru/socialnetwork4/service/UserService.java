@@ -22,7 +22,7 @@ public class UserService implements CustomService<User> {
         user.setDob("*chua dang ky");
         user.setfullName("*chua dang ky");
         user.setNote("*chua dang ky");
-        return userDAO.add(user);
+        return userDAO.create(user);
     }
 
     @Override

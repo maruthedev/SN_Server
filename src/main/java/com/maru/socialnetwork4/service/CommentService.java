@@ -10,7 +10,7 @@ public class CommentService implements CustomService<Comment>{
 
     @Override
     public Comment create(Comment comment) {
-        return commentDAO.write(comment);
+        return commentDAO.create(comment);
     }
 
     @Override

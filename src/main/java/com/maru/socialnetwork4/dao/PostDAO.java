@@ -9,21 +9,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDAO extends DAO {
-    Transaction trans = session.getTransaction();
+public class PostDAO extends DAO<Post> {
+    Transaction trans = getSession().getTransaction();
 
     public PostDAO() {
         super();
     }
 
-    public Post upload(Post post) {
+    @Override
+    public Post create(Post post) {
         try {
             post.setDate("" + LocalDateTime.now());
             post.setPoints(0);
             post.setComments(new ArrayList<>());
 
             if (!trans.isActive()) trans.begin();
-            session.save(post);
+            getSession().save(post);
             trans.commit();
             return post;
         } catch (Exception e) {
@@ -32,10 +33,20 @@ public class PostDAO extends DAO {
         }
     }
 
+    @Override
+    public Post update(Post post) {
+        return null;
+    }
+
+    @Override
+    public Post delete(Post post) {
+        return null;
+    }
+
     public List<Post> findPost(String param) {
         try {
             String hql = "FROM Post WHERE (title LIKE :p OR user.username LIKE :p)";
-            Query query = session.createQuery(hql);
+            Query query = getSession().createQuery(hql);
             query.setParameter("p", "%" + param + "%");
             return query.list();
         } catch (Exception e) {
@@ -47,7 +58,7 @@ public class PostDAO extends DAO {
     public List<Post> getUserPosts(User user) {
         try {
             String hql = "FROM Post WHERE user.username = :un";
-            Query query = session.createQuery(hql);
+            Query query = getSession().createQuery(hql);
             query.setParameter("un", user.getUsername());
             return query.list();
         } catch (Exception e) {
@@ -59,8 +70,27 @@ public class PostDAO extends DAO {
     public List<Post> getAllPosts() {
         try {
             String hql = "FROM Post";
-            Query query = session.createQuery(hql);
+            Query query = getSession().createQuery(hql);
             return (List<Post>) query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Post react(Post post) {
+        try {
+            if (!trans.isActive()) trans.begin();
+            String hql = "UPDATE Post SET " +
+                    "points = :p " +
+                    "WHERE id = :id";
+            Query query = getSession().createQuery(hql);
+            query.setParameter("p",post.getPoints());
+            query.setParameter("id", post.getID());
+            query.executeUpdate();
+            trans.commit();
+            getSession().clear();
+            return post;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

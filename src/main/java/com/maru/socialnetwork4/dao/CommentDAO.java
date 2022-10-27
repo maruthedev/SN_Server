@@ -3,24 +3,34 @@ package com.maru.socialnetwork4.dao;
 import com.maru.socialnetwork4.model.Comment;
 import org.hibernate.Transaction;
 
-public class CommentDAO extends DAO {
-    Transaction trans = session.getTransaction();
+public class CommentDAO extends DAO<Comment> {
+    Transaction trans = getSession().getTransaction();
 
     public CommentDAO() {
         super();
     }
 
-    public Comment write(Comment c) {
+    @Override
+    public Comment create(Comment comment) {
         try {
             if (!trans.isActive()) trans.begin();
-            c.setPoints(0);
-            session.save(c);
+            comment.setPoints(0);
+            getSession().save(comment);
             trans.commit();
-            return c;
+            return comment;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    @Override
+    public Comment update(Comment comment) {
+        return null;
+    }
+
+    @Override
+    public Comment delete(Comment comment) {
+        return null;
+    }
 }

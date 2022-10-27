@@ -6,8 +6,8 @@ import org.hibernate.cfg.Configuration;
 
 import java.io.File;
 
-public class DAO {
-    public static Session session;
+public abstract class DAO<T> {
+    private static Session session;
 
     public DAO() {
         if (session == null) {
@@ -19,4 +19,12 @@ public class DAO {
             }
         }
     }
+
+    public static Session getSession() {
+        return session;
+    }
+
+    public abstract T create(T t);
+    public abstract T update(T t);
+    public abstract T delete(T t);
 }
