@@ -10,3 +10,4 @@
 - Java Spring
 - Hibernate ORM
 - MySQL Database
+- Spring Security with JWT
