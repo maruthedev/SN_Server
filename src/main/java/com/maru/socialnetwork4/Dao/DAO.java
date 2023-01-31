@@ -1,4 +1,4 @@
-package com.maru.socialnetwork4.dao;
+package com.maru.socialnetwork4.Dao;
 
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;

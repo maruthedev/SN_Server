@@ -1,8 +1,8 @@
-package com.maru.socialnetwork4.controller;
+package com.maru.socialnetwork4.Controller;
 
-import com.maru.socialnetwork4.model.Post;
-import com.maru.socialnetwork4.model.User;
-import com.maru.socialnetwork4.service.PostService;
+import com.maru.socialnetwork4.Model.Post;
+import com.maru.socialnetwork4.Model.User;
+import com.maru.socialnetwork4.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

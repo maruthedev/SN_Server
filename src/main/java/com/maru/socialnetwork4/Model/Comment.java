@@ -1,4 +1,4 @@
-package com.maru.socialnetwork4.model;
+package com.maru.socialnetwork4.Model;
 
 import javax.persistence.*;
 
@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
-    private int ID;
+    @Column(name = "id", unique = true, nullable = false)
+    private int id;
     @Column(name = "description", nullable = false)
     private String description;
     @Column(name = "points", nullable = false)
@@ -23,18 +23,18 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(int ID, String description, int points) {
-        this.ID = ID;
+    public Comment(int id, String description, int points) {
+        this.id = id;
         this.description = description;
         this.points = points;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescription() {

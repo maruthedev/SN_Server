@@ -1,8 +1,8 @@
-package com.maru.socialnetwork4.service;
+package com.maru.socialnetwork4.Service;
 
-import com.maru.socialnetwork4.dao.PostDAO;
-import com.maru.socialnetwork4.model.Post;
-import com.maru.socialnetwork4.model.User;
+import com.maru.socialnetwork4.Dao.PostDAO;
+import com.maru.socialnetwork4.Model.Post;
+import com.maru.socialnetwork4.Model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

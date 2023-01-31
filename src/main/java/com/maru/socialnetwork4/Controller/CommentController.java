@@ -1,7 +1,7 @@
-package com.maru.socialnetwork4.controller;
+package com.maru.socialnetwork4.Controller;
 
-import com.maru.socialnetwork4.model.Comment;
-import com.maru.socialnetwork4.service.CommentService;
+import com.maru.socialnetwork4.Model.Comment;
+import com.maru.socialnetwork4.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

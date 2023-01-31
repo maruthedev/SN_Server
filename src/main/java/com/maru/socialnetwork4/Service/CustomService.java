@@ -1,4 +1,4 @@
-package com.maru.socialnetwork4.service;
+package com.maru.socialnetwork4.Service;
 
 public interface CustomService<T> {
     T create(T t);

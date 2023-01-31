@@ -1,7 +1,7 @@
-package com.maru.socialnetwork4.service;
+package com.maru.socialnetwork4.Service;
 
-import com.maru.socialnetwork4.dao.CommentDAO;
-import com.maru.socialnetwork4.model.Comment;
+import com.maru.socialnetwork4.Dao.CommentDAO;
+import com.maru.socialnetwork4.Model.Comment;
 import org.springframework.stereotype.Service;
 
 @Service

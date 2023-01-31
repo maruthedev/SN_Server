@@ -1,6 +1,6 @@
-package com.maru.socialnetwork4.dao;
+package com.maru.socialnetwork4.Dao;
 
-import com.maru.socialnetwork4.model.Comment;
+import com.maru.socialnetwork4.Model.Comment;
 import org.hibernate.Transaction;
 
 public class CommentDAO extends DAO<Comment> {

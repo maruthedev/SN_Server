@@ -1,7 +1,7 @@
-package com.maru.socialnetwork4.dao;
+package com.maru.socialnetwork4.Dao;
 
-import com.maru.socialnetwork4.model.Post;
-import com.maru.socialnetwork4.model.User;
+import com.maru.socialnetwork4.Model.Post;
+import com.maru.socialnetwork4.Model.User;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
@@ -86,7 +86,7 @@ public class PostDAO extends DAO<Post> {
                     "WHERE id = :id";
             Query query = getSession().createQuery(hql);
             query.setParameter("p",post.getPoints());
-            query.setParameter("id", post.getID());
+            query.setParameter("id", post.getId());
             query.executeUpdate();
             trans.commit();
             getSession().clear();

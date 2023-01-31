@@ -1,8 +1,9 @@
-package com.maru.socialnetwork4.dao;
+package com.maru.socialnetwork4.Dao;
 
-import com.maru.socialnetwork4.model.User;
+import com.maru.socialnetwork4.Model.User;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +46,17 @@ public class UserDAO extends DAO<User> {
     @Override
     public User create(User user) {
         try {
+            int userCount = countUsernamesLike(user.getUsername());
+            if (userCount > 0) {
+                return null;
+            }
+            user.setDob("*chua dang ky");
+            user.setFullName("*chua dang ky");
+            user.setNote("*chua dang ky");
             User newUser = new User(
                     user.getUsername(),
                     user.getPassword(),
-                    (user.getfullName() == null ? "*chua dang ky" : user.getfullName()),
+                    (user.getFullName() == null ? "*chua dang ky" : user.getFullName()),
                     (user.getDob() == null ? "*chua dang ky" : user.getDob()),
                     "Join at " + LocalDateTime.now()
             );
@@ -74,7 +82,7 @@ public class UserDAO extends DAO<User> {
                     "WHERE username = :un";
             Query query = getSession().createQuery(hql);
             query.setParameter("dob", user.getDob());
-            query.setParameter("fn", user.getfullName());
+            query.setParameter("fn", user.getFullName());
             query.setParameter("note", user.getNote());
             query.setParameter("un", user.getUsername());
             query.executeUpdate();
@@ -91,5 +99,30 @@ public class UserDAO extends DAO<User> {
     @Override
     public User delete(User user) {
         return null;
+    }
+
+    public User loadUserByUsername(String username) {
+        try {
+            String hql = "FROM User WHERE username = :u";
+            Query query = getSession().createQuery(hql);
+            query.setParameter("u", username);
+            List<User> list = new ArrayList<>(query.list());
+            return list.get(0);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+    public User loadUserById(int id) {
+        try {
+            String hql = "FROM User WHERE id = :id";
+            Query query = getSession().createQuery(hql);
+            query.setParameter("id", id);
+            List<User> list = new ArrayList<>(query.list());
+            return list.get(0);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

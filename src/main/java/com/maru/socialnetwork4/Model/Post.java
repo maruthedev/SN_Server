@@ -1,4 +1,4 @@
-package com.maru.socialnetwork4.model;
+package com.maru.socialnetwork4.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -12,8 +12,8 @@ import java.util.List;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
-    private int ID;
+    @Column(name = "id", unique = true, nullable = false)
+    private int id;
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "description", nullable = false)
@@ -53,12 +53,12 @@ public class Post {
         this.comments = comments;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

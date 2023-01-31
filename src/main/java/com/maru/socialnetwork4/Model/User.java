@@ -1,18 +1,20 @@
-package com.maru.socialnetwork4.model;
+package com.maru.socialnetwork4.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
-    private int ID;
+    @Column(name = "id", unique = true, nullable = false)
+    private int id;
     @Column(name = "username", unique = true, nullable = false)
     private String username;
     @Column(name = "password", nullable = false)
@@ -31,6 +33,10 @@ public class User {
     @JsonBackReference(value = "user_comment")
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference(value = "user_grantedRole")
+    private List<GrantedRole> grantedRoles;
+
 
     public User() {
     }
@@ -45,22 +51,54 @@ public class User {
         this.comments = new ArrayList<>();
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
+    @Override
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(grantedRoles.size() == 0 || grantedRoles == null) return null;
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        for (GrantedRole grantedRole : grantedRoles) {
+            authorities.add(new SimpleGrantedAuthority(grantedRole.getRole().getName()));
+        }
+        return authorities;
+    }
+
+    @Override
     public String getPassword() {
         return password;
     }
@@ -69,11 +107,11 @@ public class User {
         this.password = password;
     }
 
-    public String getfullName() {
+    public String getFullName() {
         return fullName;
     }
 
-    public void setfullName(String fullName) {
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
@@ -109,10 +147,18 @@ public class User {
         this.comments = comments;
     }
 
+    public List<GrantedRole> getGrantedRoles() {
+        return grantedRoles;
+    }
+
+    public void setGrantedRoles(List<GrantedRole> grantedRoles) {
+        this.grantedRoles = grantedRoles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "ID=" + ID +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", fullName='" + fullName + '\'' +
