@@ -1,16 +1,20 @@
 package com.maru.socialnetwork4.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.maru.socialnetwork4.Utils.CustomJSONDeserializer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
 @Table(name = "user")
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -92,11 +96,22 @@ public class User implements UserDetails {
         this.username = username;
     }
 
+    /*
+    * wrong description
+    * com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of
+    * org.springframework.security.core.GrantedAuthority (no Creators, like default constructor, exist): abstract types either need to be
+    * mapped to concrete types, have custom deserializer, or contain additional type information
+    * Although the class implement serialization, the collection cannot be parsed
+    * In fact, the deserialization of the spring security permission set failed
+    *
+    * https://blog.csdn.net/weixin_44353507/article/details/113596584
+    * */
     @Override
+    @JsonDeserialize(using = CustomJSONDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         if (grantedRoles.size() == 0) {
-            return null;
+            authorities.add(new SimpleGrantedAuthority("NOT-A-ROLE!"));
         } else for (GrantedRole grantedRole : grantedRoles) {
             authorities.add(new SimpleGrantedAuthority(grantedRole.getRole().getName()));
         }

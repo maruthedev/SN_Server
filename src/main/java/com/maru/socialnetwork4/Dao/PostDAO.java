@@ -55,7 +55,7 @@ public class PostDAO extends DAO<Post> {
         }
     }
 
-    public List<Post> getUserPosts(User user) {
+    public List<Post>  getUserPosts(User user) {
         try {
             String hql = "FROM Post WHERE user.username = :un";
             Query query = getSession().createQuery(hql);

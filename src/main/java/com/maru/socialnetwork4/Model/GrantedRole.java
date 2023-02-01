@@ -2,10 +2,11 @@ package com.maru.socialnetwork4.Model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "granted_role")
-public class GrantedRole {
+public class GrantedRole implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
