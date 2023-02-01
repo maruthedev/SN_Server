@@ -16,7 +16,6 @@ public class UserService implements CustomService<User>, UserDetailsService {
 
     @Override
     public User create(User user) {
-
         return userDAO.create(user);
     }
 

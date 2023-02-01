@@ -36,8 +36,17 @@ public class UserController {
     }
 
     @PostMapping(path = "signUp")
-    public User signUp(@RequestBody User user) {
-        return userService.create(user);
+    public CustomResponseEntity<User> signUp(@RequestBody User user) {
+        CustomResponseEntity<User> responseEntity = new CustomResponseEntity<>();
+        User signUpUser = userService.create(user);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+            signUpUser.getUsername(),
+            signUpUser.getPassword()
+        );
+        responseEntity.setT(signUpUser);
+        responseEntity.setToken(jwtTokenProvider.generateToken(signUpUser));
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        return responseEntity;
     }
 
     @PostMapping(path = "update")

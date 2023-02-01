@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers("/user/signIn", "/user/signUp")
                     .permitAll()
-                .antMatchers("user/update")
+                .antMatchers("/user/update")
                     .authenticated()
                 .antMatchers("/post/getAllPosts")
                     .hasAuthority("ADMIN")

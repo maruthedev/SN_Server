@@ -39,6 +39,9 @@ public class User implements UserDetails {
 
 
     public User() {
+        this.posts = new ArrayList<>();
+        this.comments = new ArrayList<>();
+        this.grantedRoles = new ArrayList<>();
     }
 
     public User(String username, String password, String fullName, String dob, String note) {
@@ -49,6 +52,7 @@ public class User implements UserDetails {
         this.note = note;
         this.posts = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.grantedRoles = new ArrayList<>();
     }
 
     public int getId() {
@@ -90,9 +94,10 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(grantedRoles.size() == 0 || grantedRoles == null) return null;
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        for (GrantedRole grantedRole : grantedRoles) {
+        if (grantedRoles.size() == 0) {
+            return null;
+        } else for (GrantedRole grantedRole : grantedRoles) {
             authorities.add(new SimpleGrantedAuthority(grantedRole.getRole().getName()));
         }
         return authorities;
